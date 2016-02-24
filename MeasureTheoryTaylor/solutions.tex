@@ -543,6 +543,43 @@ This quantity is definitely greater than or equal to zero since $\varphi \in \ma
  
 \end{proof}
 
+\section{Integrals as Limits of Simple Functions}
+The definition of the integral of a measurable function is
+
+\begin{equation}
+\int f\, d\mu = \sup \left\{ \int \varphi\, d\mu: 0 \le \varphi \le f,\, \varphi \in \mathfrak{G}^+ \right\}
+\end{equation}
+
+We can always find a sequence of simple functions $\varphi_j \nearrow f$. We know because one such example is the simple-2 functions $\varphi_{2j}(x)$ that takes on the closest value to $f(x)$ that is less than or equal $j$ AND also a multiple of $2^{-(j-1)}$. Figure \ref{fig:increasingSimpleFunctions} shows an example of these increasing simple functions and their integral for a particularly nice function.
+
+\begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{limitOfSimpleFunctions.png}
+    \caption{Integral of Increasing Simple Functions.}
+    \label{fig:increasingSimpleFunctions}
+\end{figure}
+
+\begin{theorem}
+Given any simple function, $\varphi$, there is exists an $N$ such that for $n \ge N$
+
+\begin{equation}
+\int \varphi\, d\mu \le \int \varphi_{2n}\, d\mu
+\end{equation}
+
+and thus for a set of simple functions that include the simple-2 functions
+
+\begin{equation}
+\sup \int \varphi\, d\mu = \sup \int \varphi_{2n}\, d\mu
+\end{equation}
+
+so the integral of any measurable function can be stated as the supremum integral over all simple-2 functions
+\end{theorem}
+
+\begin{proof}
+Let $0 \le \varphi \le f$ be a simple function. By definition it is of the form $\varphi = \sum_{l=1}^M a_l \chi_{S_l}$.
+\end{proof}
+
+
 \section{Monotone Convergence Theorem}
 Remember that the measurable functions $\mathcal{M}^+$ are the set of functions from $X$ to $[0,\infty]$ such that the pre-image of any open set is a set in the $\sigma$-algebra of $X$ we are concerned with, $\mathfrak{F}$. We can have an increasing sequence of such functions which just means if you look at one slice $f_j(x)$ for a single $x$ and increase $j$ this itself is a sequence. When we say $f_j \nearrow$ then that means we have a bunch of sequences (one for each $x \in X$) that are all increasing. We know these will all converge to a measurable function $f$, and since it's measurable it'll have an integral but the Monotone Convergence Theorem says the following will hold
 
@@ -588,17 +625,358 @@ Sometimes we can rearrange infinite sums of areas of the boxes and sometimes we 
 Remember to get the integral of a measurable function you take get the integrals of all simple functions less than that function then you take the supremum of that set of integrals. The integrals of simple functions are just finite sums, but the supremum can turn in to an infinite sum. The statement $\int |f| d\mu < \infty$ is saying that the absolute value of this infinite sum is finite so it can be rearranged. Being able to rearrange these sums are important it gives us a semblance of consistency and predictably in a scary unpredictable world that's why we give the set of these function that have these absolutely convergent integrals the special name $\mathcal{L}^1(X,\mu)$. 
 
 \section{$\mathcal{L}^1$}
+For this set of functions $\mathcal{L}^1(X,\mu)$ the function (or mapping) $\mathfrak{J}$ is a function that maps elements of $\mathcal{L}^1(X,\mu)$ to $\mathbb{R}$. More importantly, this mapping is linear, meaning two things. The first is that
 
+\begin{equation}
+\mathfrak{J}(f_1+f_2) = \int f_1+f_2 \,d\mu = \int f_1\, d\mu + \int f_2\, d\mu
+\end{equation}
+
+That means it's equivalent to map these two functions then add up the mapping and get the mapping of the sum. This make sense though because it's just rearranging the infinite sum. The other condition is the following
+
+\begin{equation}
+\mathfrak{J}(cf) = \int cf \,d\mu = c \int f\, d\mu
+\end{equation}
+
+which again make sense because an infinite sum that is finite times a constant is the same as multiplying each term in the sum by the constant.
 
 \section{Dominated Convergence Theorem}
+\begin{theorem}
+Let $f_n \in \mathcal{L}^1(X,\mu)$, for $n \in \mathbb{Z}^+$. Suppose $f: X \to \mathbb{R}$ and $f_n(x) \to f(x)$ for all $x \in X$, and suppose that there is a function $g$ satisfying
+
+\begin{equation}
+g \in \mathcal{L}^1(X,\mu),\; |f_n| \le g,\, 
+\end{equation}
+
+for all n. Then
+
+\begin{equation}
+f \in \mathcal{L}^1(X,\mu)
+\end{equation}
+
+and
+
+\begin{equation}
+\int f\, d\mu = \lim_{n \to \infty} \int f_n\, d\mu.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+This is sort of the like the monotone convergence theorem. $\int f\, d\mu$ and $\int f_n\, d\mu$ are both the supremum of integrals of simple functions $\varphi_j$ and $\varphi_{nj}$ which are functions that map sets in $\mathfrak{F}$ to a finite set of real numbers as we discussed before. Once you consider the supremum, the sum can be countably infinite with each term being thought of as a rectangular portion of area added. The height of this rectangle is the length of some interval, and the width is the measure of the pre-image of that interval with respect to $f$. Since $f_n$ converges to $f$ the measures will eventually match up. 
+
+\end{proof}
 
 \section{Egoroff's Theorem}
 
+\subsection{Uniform Convergence}
+When we say that $f_n(x) \to f(x)$ this is called point-wise convergence. It means that for any single $x$ the sequence of numbers $f_n(x)$ is convergence to $f(x)$. This just means that for any $\varepsilon >0$ we can find an $N$ such that when $n \ge N$ the difference between $f_n(x)$ and $f(x)$ is no greater than $\varepsilon$. The function is Figure \ref{fig:uniformConvergence} has this property. 
+
+\begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{uniformConvergence.png}
+    \caption{The first 9 the continuous functions $f_n(x) := x^n$.}
+    \label{fig:uniformConvergence}
+\end{figure}
+
+A stronger concept is uniform convergence. This says that for any $\varepsilon >0$ we can find an $n$ such that when $n \ge N$ then the difference between $f_n$ and $f$ is no greater than $\varepsilon$ for ANY $x$. The function $x^n$ goes to the function that is 0 on $[0,1)$ and 1 at 1. It's clear that for any $\varepsilon$ we choose if we look just look at a single $x$ then eventually $f_n(x)$ will get within $\varepsilon$ of $f(x)$ and stay there. But there will still be some $x$ that are not within $\varepsilon$. Hence the function is not uniformly convergent.
+
+\subsection{Egoroff's Theorem}
+It's clear now that we can't always guarantee uniform convergence for functions that confirm point-wise. Even though the pesky non-uniformly convergent part is always there, it gets smaller and smaller. This is more or less what Egoroff's Theorem says.
+
+\begin{proposition}[Egoroff's Theorem]
+Let $(X,\mathfrak{F}m\mu)$ be a measure space such that $\mu(X) < \infty$. Assume $f_j$ are $\mathfrak{F}$-measurable and $f_j(x) \to f(x)$ for all $x \in X$. Then, given any $\delta > 0$, there exists $B \in mathfrak{F}$ such that
+
+\begin{equation}
+\mu(B) \le \delta
+\end{equation}
+
+and $f_j \to f$ uniformly in on $X \setminus B$.
+\end{proposition}
+
+\begin{proof}
+Since $f_j$ converges at least point-wise, then for any $x$ and for any $\varepsilon$ there will be a $j$ such that once you're past that $j$ then $f_j(x)$ and $f(x)$ will always agree within an amount less than $\varepsilon$. For $\varepsilon >0$ define the subset of $X$ where $f_j$ and $f$ will disagree by $\varepsilon$ or more at some point in the future (the guys that haven't caught up yet).
+
+\begin{equation}
+F_{n\varepsilon} = \{ x \in X: \exists j \ge n, |f_j(x)-f(x)| \ge \varepsilon \}.
+\end{equation}
+
+We know that $\bigcap_{n \ge 1} F_{n\varepsilon} = \emptyset$, because at some point each $x$ must fulfill it's promise to never stray more than $\varepsilon$ away, and so this implies that $\mu(F_{n\varepsilon}) \to 0$ as $n \to \infty$.
+
+Now let's say we want to make the measure of the badly-behaved set less than $\delta$. We now know that for any $k$ we can set $\varepsilon = 2^{-k}$ and eventually we can find an $n$ such that the measure of the guys that haven't caught up is less than $2^{-k} \delta$. And notice the measure of the set $B := \bigcup_{k \ge 1} F_{n(k),2^{-k}}$ is less than $\delta$.
+
+Now let's say on the well-behaved part we want everything to be uniformly convergent for $\varepsilon$ then pick a $k$ suck that $2^{-k} < \varepsilon$. There will be some guys liable to disagree but they are all in $B$ hence their measure is less than $\delta$. For everyone else there will be $j$ such that stay close $f(x)$
+
+\end{proof}
+
+\section{Relationship Between Riemann and Lebesgue Integrals}
+If the set of points at which a function is discontinuous is finite then function is Riemann integrable. 
+
 \section*{Solutions}
 \begin{enumerate}
+
 %%%%%%%%%
 %%%%%%%%%
-\item[1.] 
+\item[5.] A measure space is complete when every possible subset of a set $A$ with measure zero is also measurable with measure zero. Let the completion of a measure space $(X,\mathfrak{F})$ that is not complete be
+
+\begin{equation}
+\bar{\mathfrak{F}} := \{ E \cup S: E \in \mathfrak{F}, S \subset F \in \mathfrak{F}, \mu(F) =0 \}
+\end{equation}
+
+The countable union of such set is $\bigcup_{j \ge 1} (E_j \cup S_j) = \left( \bigcup_{j \ge 1} E_j \right) \cup \left( \bigcup_{j \ge 1} S_j \right)$. The first countable union is in $\mathfrak{F}$ since that is a $\sigma$-algebra and the second set must be some subset of $F$ since all of its constituents are. Thus the union is of the form necessary to be in $\bar{\mathfrak{F}}$. Similarly the complement of a set $E \cup S$ is $X \setminus E \cap X \setminus S$, but notice $X \setminus S$ can be written as $X \setminus F \cup F \setminus S$. So the complement can be written in form $E \cup S$ and thus the completion is a $\sigma$-algebra. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[7.] Remember again that the Lebesque integral is the supremum integral of simple functions, and the integral of simple functions is a finite sum. 
+
+\begin{eqnarray}
+\lambda(A) &=& \int \chi_A f\, d\mu \nonumber \\
+&=& \sup \left\{ \int \chi_A\, \varphi\, d\mu: 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}  \nonumber \\
+&=& \sup \left\{\sum_{j=1}^N a_j\, \mu(A \cap S_j): 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}  \nonumber \\
+\end{eqnarray}
+
+where $S_j$ is a subspace of $X$ that $\varphi$ assigns maps to $a_j$. If $A$ is the empty set then clearly $\mu(\emptyset \cap S_j) = \mu(\phi) = 0$, so the first requirement of a measure holds for $\lambda(A)$. The second requirement is additivity on disjoint sets, so let $A=\bigcup_j A_l$ where $A_j \in \mathfrak{F}$ and all the $A_j$ are disjoint. then $\lambda(A)$ becomes
+
+\begin{eqnarray}
+&&\sup \left\{\sum_{j=1}^N a_j\, \mu \left( \left(\bigcup_l A_l \right) \cap S_j \right): 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\} \nonumber \\
+&=& \sup \left\{\sum_{j=1}^N a_j\, \mu \left( \bigcup_l (A_l \cap S_j) \right): 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}
+\end{eqnarray}
+
+but since the $A_l$ are all disjoint
+
+\begin{eqnarray}
+&=& \sup \left\{\sum_{j=1}^N a_j\, \sum_l \mu (A_l \cap S_j): 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}\nonumber
+\end{eqnarray}
+
+The inside sum is either convergent to a finite number or it goes to infinity. If the former holds then it's absolutely convergent so we can switch the sums around, if the latter holds the whole thing will be infinite anyway so it doesn't matter that we switch the sums around thus
+
+\begin{eqnarray}
+&=& \sup \left\{ \sum_l \sum_{j=1}^N a_j\, \mu (A_l \cap S_j): 0 \le \varphi \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}\nonumber
+\end{eqnarray}
+
+Remember again that for each $l$, $\varphi$ maps $A_l \cap S_j$ to $a_j$, and for different $l$ these sets are disjoint. So having a single $\varphi$ that maps also these sets to $a_j$ is equivalent to having the sum of $\varphi_l$ that only take non-zero value on the set $A_l \cap S_j$. Thus we have
+
+\begin{eqnarray}
+&=& \sup \sum_l \left\{\sum_{j=1}^N a_j\, \mu (A_l \cap S_j): 0 \le \varphi_l \le f,\, \varphi \in \mathfrak{S}^+(X) \right\}\nonumber
+\end{eqnarray}
+
+and the supremum of the sums is just the sum of the supremums
+
+\begin{eqnarray}
+&=& \sum_l \sup  \left\{\sum_{j=1}^N a_j\, \mu (A_l \cap S_j): 0 \le \varphi_l \le f,\, \varphi \in \mathfrak{S}^+(X) \right\} \nonumber \\
+&=& \sum_l \int \chi_{A_l} f\, d\mu\nonumber \\
+&=& \sum_l \lambda(A_l)
+\end{eqnarray}
+
+and thus we have that $\lambda$ is indeed a measure. This is important because in general $f$ can be some sort of probability distribution and $A$ are essentially sets of outcomes, called events, that can happen. It is comforting to know that the ``probability" of an outcome that is not in the outcome space and therefore not possible happening is zero. It's also comforting to know that if you want to know the probability of a bunch of different events happening that are disjoint (i.e. if one event happens the other can't happen) then you can just add up the probabilities of each event happening on its own.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[8.] $f$ is in $\mathcal{L}^1(X,\mu)$ which means that $\int |f|\, d\mu < \infty$. The left side is equal to the following by the definition of the integral
+
+\begin{eqnarray}
+\sup \left\{ \sum_{j=1}^N a_j\, \mu(S_j): 0 \le \varphi \le |f|,\, \varphi \in \mathfrak{G}^+ \right\}
+\end{eqnarray}
+
+We know there exists a simple function, $\varphi_{\varepsilon/2}$ that satisfies the criteria whose integral is only less than the integral of $|f|$ by $\varepsilon/2$, otherwise the integral of $|f|$ wouldn't be what it is. Since this is a simple function it only takes on finite many values so let $\alpha$ be the maximum of these finite values. The integral of this simple function over a set $S$ whose measure is less than $\varepsilon / (2\alpha)$ is thus at most $\varepsilon / 2$, and since its integral is no less than the the integral of $|f|$ minus $\varepsilon/2$ then the integral of $|f|$ will be at most $\varepsilon$ as long as that set $S$ has measure less than $\varepsilon/ (2\alpha)$. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[9.] Uniform convergence of a sequence of functions $f_n$ means that there is for sure a certain $N$, such that once your sequence has passed it (i.e. $n \ge N$), no matter what $x \in X$ you look at you can guarantee that $f_n(x)$ will be no farther away from $f(x)$ than $\varepsilon$, for any $\varepsilon > 0$.
+
+Egoroff's Theorem says that if you have a sequence of functions $f_n$ converging point wise to a function $f$ and if you just don't consider a portion of the measure space, $X$ these functions are defined on, then $f_n$ converges uniformly to $f$ on the resulting portion you have left. Egoroff's theorem says that this will still hold even if you require the portion you discard to be arbitrarily small (but still greater than zero). 
+
+The dominated convergence theorem says that as long as a sequence of functions is dominated by an $\mathcal{L}^1(X,\mu)$ function then
+
+\begin{equation}
+\lim_{n \to \infty} \int f_n\, d\mu = \int \lim_{n \to \infty} f_n\, d\mu
+\end{equation}
+
+so we want to make sure that if we want to integral of $f_n$ to stay close to the integral of $f$ once we've passed a certain $n$, more specifically within $\varepsilon$. So let's start splitting the integral on the left in to two integrals, one taken over a set where $f_n$ is uniformly convergent and the other taken over a set where it's not called $B$. To ensure that the integral of $f_n$ will be within $\varepsilon$ of the integral of $f$, we'll require that each these constituent integrals be within $\varepsilon/2$ of the integrals of $f$ over the same respective regions.
+
+Let's start with the set where $f$ is uniformly convergent i.e. $X \setminus B$. Again we want to ensure that once we pass a certain $N_{X \setminus B}$ that the following will hold
+
+\begin{equation}
+\left| \int_{X \setminus B} f_n\, d\mu - \int_{X \setminus B} f\,d\mu \right| = \left| \int_{X \setminus B} f_n-f\,d\mu \right| < \varepsilon /2
+\end{equation}
+
+or by definition of the integral of a measurable function
+
+\begin{eqnarray}
+\sup \left\{ \sum_{j=1}^N a_j\, \mu(S_j \cap X \setminus B): 0 \le \varphi \le f_n-f,\, \varphi \in \mathfrak{G}^+ \right\} < \varepsilon/2
+\end{eqnarray}
+
+Since $f_n$ converges uniformly one this region, know there's always a certain point we can pick that once we pass it $f_n-f$ is no bigger than a number bigger than zero that we specify. Let's specify this number to be $\varepsilon/(2\mu(X \setminus B))$ and call the integer we have to pass $N_{X \setminus B}$ then the integral can be no bigger than $\varepsilon/2$.
+
+Now let's ensure we can find an integer that we'll call $N_{B}$ such that once we pass it the integral of $f_n$ over $B$ will be at most $\varepsilon/2$ away from the integral of $f$ over $B$. Again we want 
+
+\begin{equation}
+\left| \int_{B} f_n\, d\mu - \int_{B} f\,d\mu \right| = \left| \int_{B} f_n-f\,d\mu \right| < \varepsilon /2
+\end{equation}
+
+but the theorem we just proves in exercise 8 says we can accomplish this by making $B$ small enough. Thus the theorem is proved. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[10.] $E_{j\varepsilon}$ the set of $x$'s where $f_j$ and $f$ disagree by more than $\varepsilon$. To say that $f_j \to f$ in measure is to say that $\mu(E_{j\varepsilon})$ can remain less than any number $\delta > 0$ as long as we have passed a certain $J$, the measure of these set of $x$'s must stay lower than a certain threshold. This means that for certain $x$, $f_j(x)$ can be close to $f(x)$ but then later not so close, but there can not be a net outflow.
+
+Notice that the $x$'s for which $f_j(x)$ doesn't converge to $f(x)$ are the $x$'s such that $\limsup |f_j(x)-f(x)| > \varepsilon$. Thus these are the $x$'s that are in $\lim_{j \to \infty} E_{j \varepsilon}$, but the measure of this set is zero and so we have almost everywhere convergence. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[11.] If $f_n \to f$ in measure we can split up the integral of $f_n$ over the regions where $f_n$ converges and the region where it doesn't. Over the region where it does the regular old dominated convergence theorem holds and over the other region the integral will be zero.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[12.] To strengthen the neural pathways in our brains we'll once again take a look at the explicit form of the Lebesque integral in terms of simple functions.
+
+\begin{eqnarray}
+&&\int_X \frac{|f-g|}{1+|f-g|}\, d\mu \nonumber\\
+&=& \sup \left\{ \sum_{j=1}^N a_j^+\, \mu(S_j^+): 0 \le \varphi \le \left( \frac{|f-g|}{1+|f-g|}\right)^+,\, \varphi \in \mathfrak{G}^+ \right\}\nonumber\\
+&-& \sup \left\{ \sum_{j=1}^N a_j^-\, \mu(S_j^-): 0 \le \varphi \le \left( \frac{|f-g|}{1+|f-g|} \right)^-,\, \varphi \in \mathfrak{G}^+ \right\}\nonumber\\
+\end{eqnarray}
+
+The right hand term is the negation of the negative portion of the function, but the function will never be negative, so the greater than zero requirement readily holds so we can just write
+
+\begin{eqnarray}
+\int_X \frac{|f-g|}{1+|f-g|}\, d\mu&=& \sup \left\{ \sum_{j=1}^N a_j\, \mu(S_j): 0 \le \varphi \le \frac{|f-g|}{1+|f-g|},\, \varphi \in \mathfrak{G}^+ \right\}\nonumber\\
+\end{eqnarray}
+
+If $f$ and $g$ are in the same equivalence class, i.e. they are equal $\mu$-a.e. then any time $a_j \neq 0$ in that sum the measure will be zero, so for the same elements of $M(X,\mathfrak{F},\mu)$ the function gives the value zero.
+
+The last requirement of the shortest path from point $a$ to point $b$ is the direct path, i.e. not going through any intermediary points so we have must have $d(f,g) \le d(f,h)+d(h,g)$ so let's take a look at the term on the right of the inequality
+
+\begin{eqnarray}
+&&\frac{|f-h|}{1+|f-h|} + \frac{|h-g|}{1+|h-g|} \nonumber\\
+&=& \frac{|f-h|+2|f-h|\,|h-g|+|h-g|}{1+|f-h| + |h-g| + |f-h|\,|h-g| }
+\end{eqnarray}
+
+we have to show this is always greater than $d(f,g)$.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[13.] Almost everywhere convergence means that for all $x$ in a measurable subset $X_1$ such that $\mu(X \setminus X_1)=0$ the function converges point wise. Recall the set
+
+\begin{equation}
+E_{j \varepsilon} = \{ x \in X: |f_j(x)-f(x)| > \varepsilon \}
+\end{equation}
+
+i.e. the set of $x$'s where $f_j$ and $f$ disagree by more than $\varepsilon$. This can be rewritten as
+
+\begin{eqnarray}
+E_{j \varepsilon} = \{ x \in X_1: |f_j(x)-f(x)| > \varepsilon \} \cup \{ x \in X \setminus X_1: |f_j(x)-f(x)| > \varepsilon \} \nonumber\\
+\end{eqnarray}
+
+since $X_1$ and $X \setminus X_1$ are disjoint the measure can be written as
+
+\begin{eqnarray}
+\mu(E_{j \varepsilon}) &=& \mu(\{ x \in X_1: |f_j(x)-f(x)| > \varepsilon \}) \nonumber\\
+&&+\mu( \{ x \in X \setminus X_1: |f_j(x)-f(x)| > \varepsilon \}) \nonumber\\
+\end{eqnarray}
+
+since the measure space is complete the second term is zero because its a subset of $X \setminus X_1$ which it self has measure zero. As for the first term we know that we can find a subsequence such that the set keeps getting elements taken away since for every $x$ and every $\varepsilon$ we can find a $J$ that once you've passed it the two will never again differ by more than $\varepsilon$, but it could be that the set is infinite to begin with. For example $f_j(x)=\sin(x) /n$ converges to zero for every $x$ so for a certain $\varepsilon$ you'll always be removing $x$'s for that set, but still the measure will always be infinite. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[14.] Define $d(x,S)$ be the infimum distance of $x$ to all elements in $S$. Now let us set
+
+\begin{equation}
+f_j(x) := \frac{jd(x,I \setminus \mathcal{O})}{1+jd(x,I \setminus \mathcal{O})}
+\end{equation}
+
+Figure \ref{fig:continuousToCharacteristic} depicts this function for the open set $(0.4,0.8)$ and $j=1,2,3,10^3,10^4,10^5,10^7$.
+
+\begin{figure}[h]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{continuousToCharacteristic.png}
+    \caption{The first 9 the continuous functions $f_n(x) := x^n$.}
+    \label{fig:continuousToCharacteristic}
+\end{figure}
+
+The elements that are not in $\mathcal{O}$ will always take on value zero since they have zero distance from themselves. The elements that are in $\mathcal{O}$ always have some positive distance from $I \setminus \mathcal{O}$. Now if we're talking about $K$ closed we use the function
+
+\begin{equation}
+f_j(x) := 1- \frac{jd(x,K)}{1+jd(x,K)}
+\end{equation}
+
+If $x\in K$ then the distance will always be zero so the function will always equal 1. On the other hand if $x \notin K$ then the distance to $K$ will always be positive and the term on the right will increase with $j$ driving the whole function down to zero.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[15.] For every open interval $\mathcal{O}$ and every $\varepsilon > 0$ we know there is a closed interval $K_{\varepsilon}$ with the same center as $\mathcal{O}$ such that $l(K_\varepsilon) > l(\mathcal{O}) + \varepsilon$. For each $\mathcal{O}_j$ in the countable intersection let us consider the corresponding closed sets $K_{2^j}$ such that $l(K_{2^j}) > l(\mathcal{O}_j) + l(\mathcal{O}_j)/2^j$ that get progressively closer and closer in length to their open counterparts as $j$ is larger. Now define the following function
+
+\begin{equation}
+f_n(x) :=  1- \frac{d(x, \bigcap_{j=1}^\infty K_{2^{j+n}})}{d(x, \bigcap_{j=1}^\infty K_{2^{j+n}})+d(x,X \setminus \bigcap_{j=1}^\infty \mathcal{O}_j)}
+\end{equation}
+
+Now, if $x$ is not in $\bigcap_{j=1}^\infty \mathcal{O}_j$ then that means $x$ is definitely not in the closed set $\bigcap_{j=1}^\infty K_{2^{j+n}} \subset \bigcap_{j=1}^\infty \mathcal{O}_j$. Since it is not in that closed set, it has some positive distance away from that set, otherwise it would be a limit point and hence part of the closed set. So in this case  $f_n$ will always be zero.
+
+If $x$ is in $\bigcap_{j=1}^\infty K_{2^{j+n}}$ then for each $j$, $x \in K_{2^{j+n}}$, but remember $K_{2^{j+n}}$ is the close interval with the same center as $\mathcal{O}_j$ such that $l(K_{2^{j+n}}) > l(\mathcal{O}_j) + l(\mathcal{O}_j)/2^{j+n}$, so if $x \in  K_{2^{j+n}}$ then $d(x,X \setminus  \mathcal{O}_j) > l(\mathcal{O}_j)/2^{j+n}$ so $f_n$ is always 1 in these cases.
+
+Now the only other case is when $x$ is not in $\bigcap_{j=1}^\infty K_{2^{j+n}}$, but it IS in $\bigcap_{j=1}^\infty \mathcal{O}_j$. In those cases you want $f_n(x)$ to be 1 certainly, but it may never, no matter how big we make $n$. The measure of that set though is
+
+\begin{eqnarray}
+m\left( \bigcup_{j=1}^\infty (\mathcal{O}_k \setminus K_{2^{j+n}}) \right) &=& \sum_{j=1}^\infty m(\mathcal{O}_k \setminus K_{2^{j+n}}) \nonumber \\
+&<& \sum_{j=1}^\infty l(\mathcal{O}_j)/2^{j+n} \nonumber \\
+&=& \frac{1}{2^n}\sum_{j=1}^\infty l(\mathcal{O}_j)/2^{j}
+\end{eqnarray}
+
+
+
+%%%%%%%%%
+%%%%%%%%%
+\item[16.] If $S \subset I$ is Lebesque measurable then we can find a compact set $K_{1/n} \subset S$ such that $m(K_{1/n}) > m(S) - 1/n$ and an open set $\mathcal{O}_{1/n} \supset S$ such that $m(\mathcal{O}_{1/n}) < m(S) + 1/n$ for any $n \in \mathbb{N}$. Since $K$ and $\mathcal{O}$ are both measurable we have
+
+\begin{eqnarray}
+m(\mathcal{O}_{1/n} \setminus K_{1/n}) &=& m(\mathcal{O}_{1/n}) - m(K_{1/n}) \nonumber \\
+&<& m(S)+1/n - m(S) +1/n \nonumber\\
+&=& 2/n
+\end{eqnarray}
+
+Now note that $S_0 := \bigcap_{n \ge 1} K_{1/n}$ is a $F_\sigma$ set and $S_1 := \bigcup{n \ge 1} \mathcal{O}_{1/n}$ is a $G_\delta$ set and by the above equation $m(S_1 \setminus S_0)$ must be zero.
+
+From the previous exercise, we know we can find a sequence of continuous function that converge almost everywhere to the characteristic function of the $F_\sigma$ set $S_0$ and another sequence of continuous functions that converge almost everywhere to the characteristic set of $G_\delta$ set $S_1$. Either one of these sets will converge to the characteristic function of $S$ almost everywhere. Since $S_0 \subset S \subset S_1$ we know that $S_1 \setminus S_0 = (S_1 \setminus S) \cup (S \setminus S_0)$ and since these two sets are disjoint $m(S_1 \setminus S_0) = m(S_1 \setminus S)+m(S \setminus S_0)$ and they are both equal to zero.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[17.] Each simple function is the linear combination of characteristic functions of measurable set and we just showed that the characteristic function of any measurable set has a continuous sequence approximation. 
+
+%%%%%%%%%
+%%%%%%%%%
+\item[18.] First we show that uniform convergence implies continuity in the limit. Assume $f_n \to f$ uniformly, i.e. for any $\varepsilon$ we can find an $N$ such that once we're past that $N$, $f_n$ will be within $\varepsilon$ of $f$ for any $x \in X$ we look at. 
+
+Now what we need for $f$ to be continuous is that for any $\varepsilon > 0$, we can guarantee $f(y)$ is within $\varepsilon$ of $f(x)$ by making sure $y$ is wishing some $\delta$ of $x$. We know we can find an $N$ so that $f_n$ is within $\varepsilon/2$ of $f$, and $f_n$ is continuous so we can find a $\delta$ to keep us within $\varepsilon/2$ of $f_n(x)$. Thus if we stay within $\delta$ of $x$ then $f_n(y)$ will be within $\varepsilon/2$ of $f_n(x)$ and $f_n(x)$ will be within $\varepsilon/2$ of $f(x)$ therefore if we stay within $\delta$ of $x$ we will be within $\varepsilon$ of $f(x)$ which is exactly our requirement that we were trying to prove.
+
+By Egoroff's theorem, we know we can make the function converge uniformly everywhere except a subset $B$ with measure less than $\delta$. Thus $f$ is continuous on $X \setminus B$.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[20.] $S_f(t)$ goes to the entire set $X$ as $t$ goes to zero. Elements are then removed from the set as $t$ increases. Thus the measure of the set starts out as having the same measure as $X$ then decreases monotonically as elements are removed. If $f$ were a simple function then it would map measurable sets to a finite set of levels $a_n$, and each set $S_n \in X$ that $f$ maps to $a_n$ would have an associated measure $m(S_n)$. In this scenario $\Psi_f(t)$ is a decreasing step function. When $t$ is close to zero
+
+\begin{eqnarray}
+\Psi_f(t)=\mu(S_f(t))=m(\bigcup_{n=1}^N S_n)=\sum_{n=1}^N m(S_n)
+\end{eqnarray}
+
+and as $t$ increases and just passes an $a_n$ then the associated $m(S_n)$ would drop out of that sum. Thus (without loss of generality) $\Psi_f(t)$ takes on the finite values $\sum_{n=1}^N m(S_n), \sum_{n=1}^{N-1} m(S_n), \cdots, m(S_1)$, so it is a simple function and thus its integral is
+
+\begin{eqnarray}
+\int_0^\infty \Psi_f(t)\,dt &=& \sum_{j=0}^{N-1} \left( \sum_{n=1}^{N-j} m(S_n) \right)\, \mu \left(\Psi_f^{-1} \left( \sum_{n=1}^{N-j} m(S_n) \right) \right)
+\end{eqnarray}
+
+since $\Psi_f(t)$ ``drops" once it passes $a_n$ then the measure of the pre-image of those finite values is just $a_n-a_{n-1}$ where we let $a_0 := 0$ so we have
+
+\begin{eqnarray}
+\int_0^\infty \Psi_f(t)\,dt &=& \sum_{j=0}^{N-1} \left( \sum_{n=1}^{N-j} m(S_n) \right)\, (a_n-a_{n-1})\nonumber\\
+&=& \sum_{j=0}^{N-1} \left( \sum_{n=1}^{N-j}  a_n m(S_n)- \sum_{n=1}^{N-j}  a_{n-1} m(S_n) \right)\,\nonumber\\
+&=& \sum_{j=0}^{N-1}a_{N-j} m(S_{N-j})\,\nonumber\\
+&=& \sum_{n=1}^{N} a_n\,\mu(S_n)\nonumber\\
+&=& \int_X f\, d\mu
+\end{eqnarray}
+
+The integral of $f$ takes adds up the values the function takes on times the measure of the sets where it takes that value. This is equivalent to saying if you owe one person \$10, another person \$20, and yet another person \$50 you pay them each a 10,20, and 50 dollar bill respectively. The integral of $\Psi_f(t)$ would be the equivalent of first paying everybody \$10. Then paying the second and third person another \$10, then paying the last person \$30.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[21.] Recall that the homeomorphism discussed maps $L$ to $K$ and recall that $L$ has positive measure, but $K$ has measure zero. We can pick a measurable subset of $K$ that has measure zero but then has a pre-image that is a subset of $L$ with positive measure, but every subset of positive measure has a non-measurable subset. 
+
 
 \end{enumerate}
 
@@ -608,11 +986,432 @@ Remember to get the integral of a measurable function you take get the integrals
 %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%
 
+\section{$L^p$ $L^q$ Relationship}
+
+If $f \in L^p(X,\mu)$ then 
+
+\begin{equation}
+\| f \|_{L^p} = \sup \{ \| fh \|_{L^1}: h \in L^q(X,\mu), \| h \|_{L^q}=1 \}.
+\end{equation}
+
+or more explicitly 
+
+\begin{eqnarray}
+&&\left[ \int_X |f(x)|^p \, d\mu(x) \right]^{1/p} \nonumber \\
+&=& \sup \left\{ \int_X |f(x)h(x)| \, d\mu(x)  : h \in L^q(X,\mu),  \int_X |h(x)|^q \, d\mu(x) = 1  \right\}
+\end{eqnarray}
+
+This statement is essentially saying that if you take all $h \in L^q$ that are of size 1 and pick the one that approximates $f$ the best in terms of $f$ having the biggest $L^1$ projection on it that projection length will be the $L^p$ norm. The statement can be boiled in to two inequalities.
+
+\subsection{Less Than}
+\begin{eqnarray}
+&&\left[ \int_X |f(x)|^p \, d\mu(x) \right]^{1/p} \nonumber \\
+&\le& \sup \left\{ \int_X |f(x)h(x)| \, d\mu(x)  : h \in L^q(X,\mu),  \int_X |h(x)|^q \, d\mu(x) = 1  \right\}
+\end{eqnarray}
+
+If we let $h=|f^{p-1}|$ then
+
+\begin{eqnarray}
+\int_X |f(x)h(x)| \, d\mu(x) &=& \int_X |f(x) |f^{p-1}(x)| |\, d\mu(x)\nonumber \\
+&=&\int_X |f(x)|^p \, d\mu(x)
+\end{eqnarray}
+
+Of course we'd have to divide $h$ by its $L^q$ norm to make sure it has length 1 so we get 
+
+\begin{eqnarray}
+\frac{1}{\| f^{p-1} \|_{L^q}} \int_X |f(x)|^p \, d\mu(x)
+\end{eqnarray}
+
+now the question is if this is greater than $\left[ \int_X |f(x)|^p \, d\mu(x) \right]^{1/p} $ that is
+
+\begin{eqnarray}
+&&\left[ \int_X |f(x)|^p \, d\mu(x) \right]^{1/p} \stackrel{?}{\le} \frac{1}{\| f^{p-1} \|_{L^q}} \int_X |f(x)|^p \, d\mu(x)
+\end{eqnarray}
+
+or since $1/p=1-1/q$
+
+\begin{eqnarray}
+&& \int_X |f(x)|^p \, d\mu(x)  \stackrel{?}{\le}  \frac{\left[ \int_X |f(x)|^p \, d\mu(x) \right]^{1/q}}{ \left[ \int_X |f(x)|^{(p-1)q} \, d\mu(x) \right]^{1/q} } \int_X |f(x)|^p \, d\mu(x)
+\end{eqnarray}
+
+so now the question is 
+
+\begin{eqnarray}
+&&\int_X |f(x)|^p \, d\mu(x)  \stackrel{?}{\le}   \int_X |f(x)|^{(p-1)q} \, d\mu(x)
+\end{eqnarray}
+
+but since $q=p/(p-1)$ the answer is that they're equal. So that specific $h$ that we picked i.e. $f^{p-1}$ divided by it's own $L^q$ norm has $L^q$ norm equal to one so it's one of the valid $h$'s so the supremum of all valid $h$.
+
+\subsection{Greater Than}
+We know that the lowest point the function $\varphi(t) := \frac{a^p}{p} t^p + \frac{b^q}{q} t^{-q}$ can reach is $ab$ thus $ab \le \varphi(1)=\frac{a^p}{p} + \frac{b^q}{q}$ thus
+
+\begin{equation}
+fg \le \frac{1}{p} f^p + \frac{1}{q} g^q
+\end{equation}
+
+so likewise
+
+\begin{eqnarray}
+\int |fg| d\mu(x) &\le& \int |\frac{1}{p} f^p + \frac{1}{q} g^q| d\mu(x) \nonumber\\
+&=& \frac{1}{p}\|f\|_{L^p}^p + \frac{1}{q} \| g \|_{L^q}^q \nonumber\\
+\end{eqnarray}
+
+but note that this in turn is less than or equal to 
+
+\begin{eqnarray}
+\frac{t^p}{p}\|f\|_{L^p}^p + \frac{1}{qt^q} \| g \|_{L^q}^q \nonumber\\
+\end{eqnarray}
+
+and again the lowest point this can reach is $\|f\|_{L_p} \| g\|_{L_p}$ proving Holder's inequality. 
+
+\section{Denseness of Continuous Functions in $L^p(X,\mu)$}
+First off, for the continuous functions $C(X)$ to be dense in $L^p(X,\mu)$ we'd have to have that every function in $L^p(X,\mu)$ either is continuous or is the limit point of continuous functions, meaning that for any $\varepsilon >0$ we choose we can find a continuous function that has an $L^p$ difference of less than that. 
+
+Now, the following functions are continuous for any compact set 
+
+\begin{equation}
+f_{K,n}(x) = [1+n\,d(x,K)]^{-1}
+\end{equation}
+
+and they converge down to the characteristic function of any compact set. Now if $A$ is a measurable set then then its measure is defined as it's outer and inner measure which are equal. So in that case
+
+\begin{equation}
+\mu(A) = \sup\{\mu(K): K \subset A \}
+\end{equation}
+
+So from this definition we can construct an increasing sequence of compact sets $K_1 \subset K_2 \subset \cdots$. The supremum of this sequence would be the countable union of all these $K_n$'s and the measure of $A$ is thus the measure of that union. $\chi_{K_j}$ is increasing towards $\chi_A$ as more elements are included and thus get mapped to one. So by the monotone convergence theorem
+
+\begin{eqnarray}
+\int \chi_A = \int \lim_{n \to \infty} \chi_{K_j} = \lim_{n \to \infty} \int \chi_{K_j}  
+\end{eqnarray}
+
+and this then implies that
+
+\begin{eqnarray}
+&&\int \lim_{n \to \infty} \int \chi_A - \lim_{n \to \infty} \int \chi_{K_j}  = 0 \nonumber\\
+&\Rightarrow& \lim_{n \to \infty} \int \chi_A - \chi_{K_j}  = 0
+\end{eqnarray}
+
+since the integrand is only ever zero or one we can treat it as being an absolute value raised to any $p$ so then we have that the $L^p$ distance of the functions $\chi_A$ and $\chi_{K_j}$ goes to zero. Simple functions are just finite linear combinations of characteristic functions on measurable sets. So any simple function is the limit point of continuous functions. So we can always construct a continuous function to get arbitrarily close to a simple function in the $L^p$ sense and remember we can always construct increasing simple functions to get arbitrarily close to a measurable function from the bottom, this is in fact the definition of the integral. 
+
+\section{Hilbert Space}
+
+A Hilbert space $H$ is a linear space with an inner product $(u,v)$ such that
+
+\begin{eqnarray}
+(au_1+u_2,v) &=& a(u_1,v) + (u_2,v)\nonumber\\
+(u,v) &=& \overline{(v,u)}\\
+(u,u) &>& 0,\,u \neq 0\nonumber
+\end{eqnarray}
+
+\subsection{Cauchy's Inequality}
+Cauchy's inequality says that when you have a norm defined as $\| u\| = \sqrt{(u,u)}$
+
+\begin{equation}
+|(u,v)| \le \|u\| \cdot \|v\|
+\end{equation}
+
+We prove this as follows start with (just using properties of the inner product and conjugation)
+
+\begin{eqnarray}
+0 &\le& (u-v,u-v)\nonumber\\
+&=& (u,u-v)-(v,u-v)\nonumber\\
+&=& \overline{(u-v,u)} - \overline{(u-v,v)}\nonumber\\
+&=& \overline{(u,u)-(v,u)} - \overline{(u,v)-(v,u)}\nonumber\\
+&=& (u,u)-\overline{(v,u)} - \overline{(u,v)}+(v,v)\nonumber\\
+&=& (u,u)-[(u,v) + \overline{(u,v)}]+(v,v)\nonumber\\
+\end{eqnarray}
+
+the term in the square brackets becomes two times the real part of $(u,v)$ so we get
+
+\begin{equation}
+2\,\mathrm{Re}\,(u,v) \le \|u\|^2 + \|v\|^2 
+\end{equation}
+
+We know $(u,v)$  is equal to some complex number $ce^{i\theta}$ with magnitude $c$. Thus $(e^{-i\theta}u,v)=e^{-i\theta}(u,v)=e^{-i\theta}ce^{i\theta}=c$. If $u$ was multiplied by the complex scalar $e^{i\theta}$. Since the last equation holds for any complex function $u$ then it also holds for $e^{-i\theta}u$ in which case we have
+
+\begin{eqnarray}
+2\,\mathrm{Re}\,(e^{-i\theta}u,v) \le \|e^{-i\theta}u\|^2 + \|v\|^2 
+\end{eqnarray}
+
+but of course the real part here is the positive number $c$ so
+
+\begin{eqnarray}
+2 |(u,v)| &\le& \|e^{-i\theta}u\|^2 + \|v\|^2 \nonumber\\
+&=& \|u\|^2 + \|v\|^2
+\end{eqnarray}
+
+The last part comes from the fact that
+
+\begin{eqnarray}
+\|e^{-i\theta}\| &=& (e^{-i\theta}u,e^{-i\theta}u) \nonumber\\
+&=& e^{-i\theta} (u,e^{-i\theta}u)\nonumber\\
+&=& e^{-i\theta} \overline{(e^{-i\theta}u,u)}\nonumber\\
+&=& e^{-i\theta} \overline{e^{-i\theta}}(u,u)\nonumber\\
+&=& (u,u)\nonumber\\
+\end{eqnarray}
+
+The smallest point the right hand side reaches is $\|u\| \cdot \|v\|$ proving Cauchy's inequality.
+
+\subsection{Hilbert Space as a Banach Space}
+if the norm defined by $\|u\| := \sqrt{(u,u)}$ holds all the properties of a norm that we need then are Hilbert space can also be considered a Banach space. The triangle inequality holds due to Cauchy's inequality more specifically
+
+\begin{eqnarray}
+\|u+v\|^2 &=& (u+v,u+v)\nonumber\\
+&=&(u,u+v)+(v,u+v)\nonumber\\
+&=& \overline{(u+v,u)}+\overline{(u+v,v)} \nonumber\\
+&=& (u,u)+\overline{(v,u)}+\overline{(u,v)}+(v,v) \nonumber\\
+&=& (u,u)+(u,v)+\overline{(u,v)}+(v,v)\nonumber\\
+\end{eqnarray}
+
+\subsection{Convexity in a Hilbert Space}
+
+The parallelogram law for Hilbert spaces states
+
+\begin{equation}
+\|u+v\|^2 + \|u-v\|^2 = 2\|u\|^2 + 2\|v\|^2
+\end{equation}
+
+If you have a closed convex set in Hilbert space called $K$, then for any $x$ in the Hilbert space there will be a unique ``closest approximation"to $x$ called $z \in K$. Not the uniqueness here. More formally:
+
+\begin{proposition}[4.7]
+If $K \subset H$ is a nonempty, closed, convex set in a Hilbert space $H$ and if $x \in H$, then there is a unique $z \in K$ such that $d(x,K)=\| x-z\|$.
+\end{proposition} 
+
+\begin{proof}
+The definition of distance to $K$ is
+
+\begin{equation}
+d(x,K) := \inf\{\|x-y\|: y \in K \}
+\end{equation}
+
+meaning that it's the distance that is less than or equal to the distances of every $y \in K$. So if we find a a sequence $y_n$ whose distance from $x$ gets arbitrarily close to $d(x,K)$ then the distance must be the limit of the distance of these $y_n$. It is possible that if we have such a sequence it ``hops around" between multiple separated regions of $K$ that each get arbitrarily close to $d(x,K)$. Think of a Taurus with a dot in the very center. There are multiple points in the taurus that are the closest to the center.
+
+If we prove however that $y_n$ is Cauchy then there can not be any of this jumping around. We do exactly that. Using the parallelogram law with $u=y_m-x$ and $v=x-y_n$ we get
+
+\begin{eqnarray}
+\|y_m-y_n\|^2 &=& 2\|y_n-x\|^2+2\|y_m-x\|^2-4 \left\| x-\frac{1}{2} (y_n+y_m) \right\|^2
+\end{eqnarray}
+
+The key thing to notice is here is since $K$ is convex $\frac{1}{2} (y_n+y_m)$ is also is in $K$ and so that also must be greater than or equal to $d(x,K)$. Thus
+
+\begin{equation}
+\|y_m-y_n\|^2 \le 2\|y_n-x\|^2+2\|y_m-x\|^2 - 4d(x,K)^2
+\end{equation}
+
+and since the distance of $y_n$ from $x$ converges to $d(x,K)$ we have
+
+\begin{equation}
+\lim_{m,n\to \infty} \|y_m-y_n\|^2 \le 2d(x,K)^2+2d(x,K)^2 - 4d(x,K)^2 = 0
+\end{equation}
+
+so $y_n$ is Cauchy by definition and can therefore only converge to a single point.
+\end{proof}
+
+
+\subsection{Orthogonal Complements}
+A special case of a closed convex subset of $H$ is the linear subspace $K$ and the linear subspace $K^\perp$ that is the orthogonal complement of $K$ meaning that $K^\perp$ consists of all elements in $H$ that have an inner product of zero with all the elements of $K$. 
+
+If $x \in H$ and $P_K x$ is that unique point $K$ closest to $x$ then we can trivially write $x$ as the sum of that point in $K$ and another element $(x-P_K)$ that turns out to be an element in $K^\perp$ i.e.
+
+\begin{equation}
+x = P_K x + (x-P_Kx)
+\end{equation}
+
+To show this remember that by definition no other point in $K$ is closer to $x$ than $P_Kx$ so anything we add or subtract to $P_Kx$ will only result in an element of $K$ that is further from $x$. Thus the following function of $t$ is minimized when $t=0$, but if that's the case, the function's derivative is zero at $t=0$ which implies $\mathrm{Re}(x-P_Kx,v)$ is zero. 
+
+\begin{eqnarray}
+\Delta(t) &=& \|x-P_K x + tv\|^2\nonumber\\
+&=& (x-P_Kx+tv,x-P_Kx+tv)\nonumber\\
+&=& (x-P_Kx,x-P_Kx) + 2\,\mathrm{Re}(x-P_Kx,tv) +(tv,tv)\nonumber\\
+&=& \|x-P_Kx\|^2 + 2t\,\mathrm{Re}(x-P_Kx,v) +t^2 \|v\|^2
+\end{eqnarray}
+
+This quantity must be greater than zero no matter what $t$ is. 
+
+\subsection{Linear Functionals}
+A useful property of Hilbert space is that when you have a linear map from the Hilbert space to $\mathbb{C}$ i.e. a linear functional or generalized function this function can actually be written as an inner product with some other element in $H$ that is unique. Formally
+
+\begin{proposition}
+If $H$ is a Hilbert space and $\varphi: H \to \mathbb{C}$ is a continuous linear map, there exists a unique $f \in H$ such that
+
+\begin{equation}
+\varphi(u) = (u,f),\, \forall u \in H
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+We first consider the Kernel of $\varphi$ i.e. the elements in $H$ that $\varphi$ maps to zero. If $\varphi$ sends all elements to zero then $K=H$ and choosing $f$ to be zero works. If $\varphi$ doesn't send all elements to zero then there must be at least one element such that $\varphi(u) \neq 0$. The Kernel is closed because $\varphi$ is linear so we can decompose $u$ in to $u_1+u_2$ where $u_1 \in K$ and $u_2 \in K^\perp$ and use the linearity property of $\varphi$ to see that $0\neq \varphi(u_1+u_2)=\varphi(u_1)+\varphi(u_2)=\varphi(u_2)$. So since $u_2 \in K^\perp$ and $u_2$ can't be zero we deduce that $K^\perp \neq \{0\}$. 
+
+Because $\varphi(u_2) \neq 0$ then we can find some complex constant $c$ to multiply $u_2$ by such that $\varphi(cu_2) = c \varphi(u_2)=1$ and $cu_2$ is still in $K^\perp$. Now let's say $y$ is in $K^\perp$, then so is $\varphi(y)cu_2$ because it's still just $u_2$ multiplied by a constant. Also notice that $y-\varphi(y)cu_2$ is also in $K^\perp$ because it's the different of two elements in $K^\perp$ so by linearity it will have an inner-product of zero with any element in $K$. But notice that $\varphi(y-\varphi(y) c u_2)=\varphi(y)- \varphi(y) \varphi(cu_2)=\varphi(y)- \varphi(y) 1 = 0$ so this different element must also be in $K$ since $\varphi$ maps it to zero. The only way an element can be in $K$ but still have an inner product of zero with the elements of $K$ is if it is the element zero it self.
+
+Now we know that $y-\varphi(y)c u_2$ is the element zero. But remember $y$ was just any arbitrary element in $K^\perp$ and $cu_2$ was just the element $\varphi$ mapped to one. So any element in $K^\perp$ can be turned to zero but just subtracting a scalar times  the single element $cu_2$. In other words every element in $K^\perp$ can be written as a constant times $cu_2$. This then means that $K^\perp$ is only one-dimensional.
+\end{proof}
+
+So there is a a one-to-one correspondence between the space of continuous linear functionals that map $H$ to $\mathbb{C}$ and inner products. 
+
+\subsection{Constructing an Orthonormal Basis of Hilbert Space}
+If we assume that Hilbert space is separable (the will be shown in the exercises) then there is a countable subset of $H$ called $S=\{v_j,\, j \ge 1 \}$ and we can always find an element $v_n \in S$ such that for any $\varepsilon > 0$ and any element in $f \in H$ we have $\|f-v_n\| < 0$. It may be the case that the elements of $S$ are not linearly independent. We can pick a subset of $S$ called $\{w_j: j\ge1 \}$ such that each $w_j$ is linearly independent of all the $w_j$ before it and the linear span of $\{w_j\}$ if dense in $H$. When we don't have the $v_j$ we need we can just construct it with $w_j$'s. Now let $L_k := \mathrm{span}\{w_j: 1 \le j \le k\}$. We can construct an orthonormal set $\{u_j: j \ge 1\}$ by setting $u_1=w_1 / \|w_1\|$ and
+
+\begin{equation}
+u_{k+1} = \frac{w_{k+1}-P_k w_{k+1}}{\|w_{k+1}-P_k w_{k+1}\|}
+\end{equation}
+
+where $P_k$ is called the orthogonal projection of $P_k$ onto $L_k$ and defined as
+
+\begin{equation}
+P_k f := \sum_{j=1}^k (f,u_j)u_j
+\end{equation}
+
+Essentially what we are doing in this construction is splitting up $w_{k+1}$ in to the sum of a portion in $L_k$ and a portion in $L_k^\perp$ and subtracting off the former so we are left with an element orthogonal to those before it. Lastly we divide by it's length to make sure $u_{k+1}$ is of size one. 
+
+Now note that
+
+\begin{eqnarray}
+\|f\|^2 &=& \|P_kf\|^2 + \|f-P_kf\|^2 \nonumber\\
+&\ge& \|P_kf\|^2 \nonumber\\
+&=& \sum_{j=1}^k |(f,u_j)|^2
+\end{eqnarray}
+
+So the latter is increasing towards $\|f\|^2$ which is a complex number with finite magnitude so there's only so much length left in the tail $f-P-k$ that can be added as $k$ increases. This is also why  $\|P_n f - P_k f\|$ must go to zero and hence why $P_k f$ is Cauchy and hence converges to an element in $H$ that we call $g$. If we look at the inner product of $f-g$ with a single $u_l$ we get
+
+\begin{eqnarray}
+(f-g,u_l) &=& (f,u_l) - (g,u_l)\nonumber\\
+&=& (f,u_l) - \left(\sum_{j \ge 1} (f,u_j)u_j,u_l \right)\nonumber\\
+&=& (f,u_l) - \sum_{j \ge 1} (f,u_j) (u_j,u_l)\nonumber\\
+&=& (f,u_l) -  (f,u_l) (u_l,u_l)\nonumber\\
+&=& (f,u_l) -  (f,u_l)\nonumber\\
+&=& 0\nonumber\\
+\end{eqnarray}  
+
+So $f-g$ is orthogonal to every single $u_l$ and hence every element in the span of $u_l$. The span of $u_l$ is of course all of $H$ however, so $f-g$ has an inner product of zero with all elements of $H$ so $f-g$ must be zero. This then proves that $g$ is indeed equal to $f$.
+
+\section{$L^2(X,\mu)$}
+Since $L^2$ is a Hilbert space we know that any linear functional $\varphi(u)$ can be written as the inner product of $u$ with some unique function i.e. $(u,f) = \int u(x) \overline{f(x)}\, d\mu(x)$.
+
+\section{Radon-Nikodyn}
+Let us consider two finite measures $\mu,\nu$ on $(X,\mathfrak{F})$ and two more finite measures $\alpha := \mu + 2\nu$ and $\omega := 2\mu + \nu$. We can have a linear function $\varphi: H \to \mathbb{C}$ given by
+
+\begin{eqnarray}
+\varphi(f) &=& \int_X f(x)\, d\omega(x)\nonumber\\
+\end{eqnarray}
+
+Where in this case the $H$ is $L^2(X,\alpha)$.This map is linear. Note that for two functions $f_1$ and $f_2$ in the Hilbert space we have
+
+\begin{eqnarray}
+\varphi(f_1) - \varphi(f_2) &=& \int_X f_1-f_2\, d\omega\nonumber\\
+&\le& 2 \int_X f_1-f_2\, d\alpha \nonumber\\
+&\le& 2 \| f_1 - f_2 \|_{L^2(X,\alpha)}^2 \nonumber\\
+\end{eqnarray}
+
+so the function is continuous because we just have to make sure $f_1$ and $f_2$ and sufficiently close and we know $\varphi(f_1) - \varphi(f_2)$ will be sufficiently close. So since the function is linear, continuous, and bounded we know we can represent it equivalently as an inner product with some function $g \in L^2(X,\alpha)$ which then means for any $f \in L^2(X,\alpha)$
+
+\begin{eqnarray}
+&&\int_X f(x)\, d\omega(x) = \int_X f(x) g(x)\, d\alpha(x)\nonumber \nonumber\\
+&\Rightarrow& \int_X f(x)\, d(2\mu+\nu)(x) = \int_X f(x) g(x)\, d(\mu+2\nu)(x)\nonumber \\
+&\Rightarrow& 2\int_X f(x)\, d\mu(x) + \int_X f(x)\, d\nu(x) = \int_X f(x) g(x)\, d\mu+ 2 \int_X f(x) g(x)\, d\nu(x)\nonumber \\
+&\Rightarrow& \int_X f(x) (2-g(x))\, d\mu(x) = \int_X f(x) (2g(x)-1)\, d\nu(x)
+\end{eqnarray}
+
+This tells us that for any $f$ we can get the value of the integral with respect to whichever measure we'd like we just have to normalize by some other function of $g$.
+
+Since this identity must hold for any $f \in L^2(X,\alpha)$ then it must hold for the characteristic function of any measurable sets. In particular we can define the measurable sets $S_{1l} := \{x \in X: g(x) < 1/2-1/l \}$ and $S_{2l} := \{x \in X: g(x) > 2+ 1/l\}$. If $f$ was the characteristic function of $S_{1l}$ then the left side would be non-negative, but the right side would have to non-positive, but since the identity is true then we must conclude that the measure of those sets with respect to $\mu$ and $\nu$ are both zero. We see the same thing for $S_{2l}$. Therefore it doesn't matter what values $g$ takes on those two sets. We can just say $g$ takes value zero on those sets so that get a $g$ that between 1/2 and 2.
+
+Furthermore, whenever $g=1/2$ (we'll call this set $Z$) the right integral will be zero so $\mu$ must have measure zero on those sets. If we assume $\nu << \mu$ i.e. $\nu$ is absolutely continuous with respect to $\mu$ i.e. whenever $\mu$ assigns a set measure zero, $\nu$ will also assign the set measure zero,  it makes sense to consider
+
+\begin{equation}
+\int_X F(x)\, d\nu(x) = \int_X F(x) h(x)\, d\mu(x)
+\end{equation}
+
+where
+
+\begin{equation}
+f(x) = \frac{F(x)}{2g(x)-1},\; h(x)=\frac{2-g(x)}{2g(x)-1}
+\end{equation}
+
+\subsection{Mutually Singular Measures}
+We assumed that since $\nu << \mu$ then the fact that $h(x)$ has a zero in the denominator should not matter because $\mu$ had measure zero whenever that happened and thus so did $\nu$. What if $\mu$ has measure zero, but $\nu$ does not? We'd have
+
+\begin{equation}
+\int_{X \setminus Z} F\, d\nu = \int_{X \setminus Z} Fh\, d\nu
+\end{equation}
+
+that is to say that everything is still find except for on the sets where $g(x)=1/2$.
+
+Now let's define the measure $\lambda(E) := \nu(X \setminus Z \cap E)$. Say that whenever $g(x)=1/2$ we just set $h(x)=0$. Then we can say
+
+\begin{equation}
+\int_X F\, d\lambda = \int_X Fh\,d\mu
+\end{equation}
+
+since we changed $h$ to just be zero whenever $g=1/2$ and $\lambda$ will assign measure zero to any set in $Z$ because it will have no intersection with $X \setminus Z$ and thus it'll be the empty set which every measure must assign zero to. Now define $\rho(E)= \nu(E \cap Z)$, a measure on the sets we have trouble with. Now we can write $\nu=\lambda + \rho$. This will work because of the countable additivity of measures. $\lambda$ and $\rho$ have disjoint support and thus are said to be mutually singular. 
+
+The following theorem says that as long as $\mu$ and $\nu$ are finite measures we can decompose $\nu$ in to the unique measures $\lambda+\rho$ where $\lambda$ is absolutely continuous with respect to $\mu$ and $\rho$ and $\mu$ have disjoint support (they are mutually singular).
+
+\begin{theorem}
+If $\mu$ and $\nu$ are finite measures on $(X,\mathfrak{F})$, then we can write
+
+\begin{equation}
+\nu = \lambda + \rho,\; \lambda << \mu,\; \rho \perp \mu
+\end{equation}
+
+and this decomposition is unique.
+\end{theorem}
+
+\begin{proof}
+The only possible set where $\mu$ has measure zero and $\nu$ may not is the set where $g=1/2$, but $\lambda$ is not supported on that set i.e. it assigns that set measure zero so $\lambda << \mu$.
+
+Now let $\tilde{\lambda}$ and $\tilde{\rho}$ be some other measures that give these properties we want i.e. we can decompose $\nu$ in to their sum, $\tilde{\lambda}$ is absolutely continuous with respect to $\mu$ and $\tilde{\rho}$ is mutually singular with respect to $\mu$ i.e. there is no set that both measures give positive measure to. Now there must be a $\tilde{Z} \in \mathfrak{F}$ such that $\tilde{\rho}$ takes its support on such that $\mu$ takes measure zero on. Now $\mu(Z \cup \tilde{Z})=0$ so $\lambda(Z \cup \tilde{Z})=0$  and $\tilde{\lambda}(Z \cup \tilde{Z})=0$ and for any  measurable $E$ we have
+
+\begin{equation}
+\lambda(E) = \lambda(E \setminus \tilde{Z}) = \nu(E \setminus (Z \cup \tilde{Z}))
+\end{equation}
+
+\begin{equation}
+\tilde{\lambda}(E) = \tilde{\lambda}(E \setminus \tilde{Z}) = \nu(E \setminus (Z \cup \tilde{Z}))
+\end{equation}
+\end{proof}
+
+
 \section*{Solutions}
 \begin{enumerate}
 %%%%%%%%%
 %%%%%%%%%
-\item[1.]
+\item[1.] If $T_j l \to T l,\, \forall l \in L$ then for any $\varepsilon$ we can find a $J$ such that once we pass it $\|T_jl - Tl\|_W < \varepsilon$. Now since $L$ is dense in $V$ then for any $v \in V$ and any $\varepsilon$ we can find an $l \in L$ such that $\|v-l\|_V < \varepsilon$.
+
+Now we want to show we can pass a certain $J$ and guarantee that $\|T_jv-Tv\|_W < \varepsilon$, not just for any $l \in L$ but any $v \in V$. We will start by find an $l$ such that $\|v-l \|_V < \varepsilon/3C$. Thus we have
+
+\begin{equation}
+\varepsilon/3 > C \|v-l\|_V \ge \|T_j(v-l) \|_W = \|T_jv - T_j l\|_W
+\end{equation} 
+
+Since this $l \in L$ then for it we can find a $J$ such that $\|T_jl - Tl\|_W < \varepsilon/3$. Now leveraging the triangle inequality we have
+
+\begin{eqnarray}
+\|T_j v - Tv \|_W &=& \| (T_jv-T_jl) + (T_jl-Tl) + (Tv-Tl) \|_W \nonumber \\
+&=& \|T_jv-T_jl\|_W + \|T_jl-Tl\|_W + \|Tv-Tl\|_W \nonumber \\
+&\le& \varepsilon/3 + \varepsilon/3 + \varepsilon/3 \nonumber \\
+&=& \varepsilon
+\end{eqnarray}
+
+So we know if the linear transformations converge to a transformation on $L$ then they will also converge to the same transformation on $V$.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[2.] $\tau_s$ is a transformation of functions that essentially ``slides" them to the right by making it so that they reach the same values they would have $s$ units later.
+
+%%%%%%%%%
+%%%%%%%%%
+\item[3.] Remember that if a set $S$ is dense in a metric space $X$ then for any $\varepsilon >0$ we pick and any element $x\in X$ we pick can always find an element $s$ of $S$ such that $\|x-s\| < \varepsilon$. Separability just means that $S$ is also countable.
+
+The functions
+
+\begin{equation}
+\varphi_{\alpha \beta}(x) := d(x, I \setminus [\alpha, \beta])
+\end{equation} 
+
+give the distance of a set $x$ to an open set $I \setminus [\alpha,\beta]$. Thus if $x \in I \setminus [\alpha,\beta]$ or if $x$ is $\alpha$ or $\beta$ then $\varphi_{\alpha \beta}(0)$. Otherwise $\varphi_{\alpha \beta}(x)$ will be some positive number. Any finite linear combination of $\varphi_{\alpha \beta}$ where $\alpha,\beta \in \mathbb{Q} \cap I$ is continuous and therefore in $C(I)$.
+
 
 \end{enumerate}
 
@@ -627,6 +1426,10 @@ Remember to get the integral of a measurable function you take get the integrals
 %%%%%%%%%
 %%%%%%%%%
 \item[1.]
+
+%%%%%%%%%
+%%%%%%%%%
+\item[2.]
 
 \end{enumerate}
 
@@ -643,5 +1446,109 @@ Remember to get the integral of a measurable function you take get the integrals
 \item[1.]
 
 \end{enumerate}
+
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+\appendix
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+\chapter{Metric Spaces, Topological Spaces, and Compactness}
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+A metric space is a set $X$, together with a distance function $d: X \times X \to [0,\infty)$ with the properties
+
+\begin{eqnarray}
+d(x,y) &=& 0 \iff x =y\nonumber\\
+d(x,y) &=& d(y,x) \\
+d(x,y) \le d(x,z) + d(y,z)
+\end{eqnarray}
+
+The rational numbers with $d := | x-y |$ satisfy these conditions as does
+
+\begin{equation}
+d(x,y) := \sqrt{(x_1-y_1)^2 + \cdots + (x_n-y_n)^2}
+\end{equation}
+
+on $\mathbb{R}^n$.
+
+\section{Sequences and Completeness}
+For a sequence $(x_\nu)$ indexed by integers, if we can guarantee for any $\varepsilon$ that once we pass a certain $\nu_0$ that $d(x_\nu,y) < \varepsilon$ then we say that the sequence $(x_\nu)$ converges to $y$ or $x_\nu \to y$. 
+
+If we can guarantee the elements of a sequence will be within a certain distance from each other we say that the sequence is a Cauchy sequence and write $d(x_\nu,x\mu) \to 0$.
+
+A metric space is called complete if every Cauchy sequence converges to an element in the metric space. The rational numbers are not complete because you can make a sequence of rational numbers that converge to $\pi$ which is not in the set of rational numbers. 
+
+
+\section{Open and Closed Sets}
+In a metric space there is a notion of a ball
+
+\begin{equation}
+B_r(p) := \{x \in X: d(x,p) < r\}
+\end{equation}
+
+surround a point. A neighborhood of a point $p$ is any set that contains a ball around $p$. A set is called open if for every point you can find a ball centered at that point that is completely contained in the set. 
+
+A point $p$ in a set is called an accumulation or limit point of a set $X$ if for any sized ball we put around $p$ there will always be a point in $X$ that is also in the ball. another way of thinking about this is that every ball around the accumulation point $p$ will have infinitely many points in $X$.
+
+A set is called closed if it is the complement of an open set. A more useful definition is the following which says that closed sets are the sets that contain all of their accumulation points. 
+
+\begin{proposition}[A.1]
+A subset $K \subset X$ of a metric space $X$ is closed if and only if
+
+\begin{equation}
+x_j \in K,\,x_j \to p \in X \Rightarrow p \in K
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+If $K$ is closed then $X \setminus K$ is open. If $K$ has an accumulation point $p$ then ball centered at $p$ will always contain elements of $K$, now matter how small the ball, but that means we can never find a ball around $p$ that's completely in the open set $X \setminus K$ so $p$ can only otherwise be in $K$. 
+
+Conversely if $K$ contains all of its accumulation points then if we ever find a point $p$ such that we can't find a ball around it that only has points in $X \setminus K$ we can be ensured that point will be in $K$. Hence $X \setminus K$ only contains points that you can put a ball around with points only in $X \setminus K$ and is thus open meaning its complement $K$ is closed.
+\end{proof}
+
+The countable union of open sets is open. The reason is because if a point is in the union then its in at least one of the constituents, and since each constituent is open it'll contain a ball around that point and hence the union will also contain that ball.
+
+A countable intersection of closed sets is closed because if a point $q$ is in the intersection then it is in each of the constituent sets. Since each of the constituent sets are closed then every ball around that point $q$ in each constituent set will contain points of the constituent set. 
+
+The closure of a set $S$ labeled $\overline{S}$ is the smallest closed subset of $X$ that contains $S$. We can construct it by taking the intersection of all closed sets that contain $S$.
+
+If a point $p$ is an accumulation point of $S$ then $S$ has points are as close as we'd ever like to $p$ and these points must be in every closed set that contains $S$, thus they will be in the intersection of all closed sets that contain $S$ and hence in the closure of $S$. Conversely if a point $q$ is in the closure of $S$ then every closet set that contains $S$ contains points that could get as close as we want to $q$. But if EVERY closed set that contains $S$ has all these points then we must conclude $S$ itself has all these points. 
+
+Lastly, the interior of a set $S$ is the largest open set contained in S or the union of all open sets contained in $S$. The complement of the interior i.e. is the infinite intersection of closed sets that contain $X \setminus S$ and hence it is the closure of $X \setminus S$. 
+
+
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+\section{Compactness}
+A metric space $X$ is compact if every sequence $(x_k)$ has a subsequence that converges to a point in $X$. In other words, there is a subsequence such that for any $\varepsilon >0$, after a certain point we can guarantee the subsequence never get a distance more than $\varepsilon$ away from a point in $x$ called the sequence's limit. If a subset $S \subset X$ is infinite and has an accumulation point then we can come up with a sequence of points in $S$ that we can guarantee get closer and closer to that accumulation point.  
+
+\subsection{Total Boundedness and Separability}
+A metric space $X$ is totally bounded if we can find a finite set of balls each with the same radius $\varepsilon >0$ (where $\varepsilon$ is arbitrary) that cover $X$. It turns out that compactness implies total boundedness i.e. if every infinite subset has an accumulation point then for any $\varepsilon >0$ the set can be covered with balls of that size. The formal proposition is as follows
+
+\begin{proposition}
+If $X$ is a compact metric space, then given $\varepsilon >0$ there exists a finite set $\{x_1, \cdots, x_N\}$ such that $B_\varepsilon(x_1), \cdots, B_\varepsilon(x_N)$ covers $X$.
+\end{proposition}
+
+\begin{proof}
+We'll start by picking a point $x_1 \in X$ and putting a ball around it. Then we'll pick a point in $X \setminus B_\varepsilon(x_1)$ and again put a ball around it. Then we pick a point from $X \setminus (B_\varepsilon(x_1) \cup B_\varepsilon(x_2))$ and put a ball around it. Note that if we keep picking points this way none of the points will ever have a distance to any other point less that $\varepsilon$. If we never cover $X$ then the sequence $x_1, x_2,\cdots$ is an infinite sequence that never gets closer than $\varepsilon$ to any one point, but then that means it's an infinite subset of $X$ with no accumulation point so $X$ can not be compact. So if $X$ can't be covered by a finite number of balls then it is definitely not compact. So if $X$ IS compact then it can't be the case that we couldn't cover it with finite balls, we must have been able to. 
+\end{proof}
+
+Remember separability means that there is a subset that countable but also dense in $X$ i.e. for any $\varepsilon$ we can always find an element of the subset that is within that distance from any point in $X$. Compactness guarantees that there will be a countable dense subset in $X$. If we pick radii equal to $2^{-n}$ then no matter what $n$ is we know we can cover $X$ with a finite number of balls that size. We'll call each of these covers $S_n$. Now consider $\mathcal{C} := \bigcup_{n} S_n$. If we have a point $x$ in $X$ and we consider some $\varepsilon$ then there will be an $n$ such that $2^{-n} < \varepsilon$. Then that means one of the covers $S_n$ has some point that will be within $\varepsilon$ of $x$, because every point in $X$ is within the range of one of those balls and those balls only have range $2^{-n}$. So since all the points in $S_n$ are in $\mathcal{C}$ then $\mathcal{C}$ contains that point as well and $\mathcal{C}$ is also countable because it's the countable union of finite sets.
+
+\subsection{Compactness in $\mathbb{R^n}$}
+
+\subsection{Continuous Functions on Compact Metric Spaces}
+
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+\section{Product Metric Space}
+
+
+
+
 
 \end{document}
